@@ -49,8 +49,8 @@ INSERT INTO
 VALUES
   ('I have a cat', 'How do I skin a cat?', (SELECT id FROM users WHERE fname = 'Albert' AND lname = 'Einstein')),
   ('Where is my head', 'I seem to have lost my head, has anyone seen it?', (SELECT id FROM users WHERE fname = 'Ned' AND lname = 'Stark')),
-  ('Why is it so hot?', 'I''ve noticed it is really hot today and was curious about why that might be', (SELECT id FROM users WHERE fname = 'Albert' AND lname = 'Einstein'));
-
+  ('Why is it so hot?', 'I''ve noticed it is really hot today and was curious about why that might be', (SELECT id FROM users WHERE fname = 'Albert' AND lname = 'Einstein')),
+  ('Unpopular question', 'This question is no good. I don''t think anyone will like it', (SELECT id FROM users WHERE fname = 'Ned' AND lname = 'Stark'));
 INSERT INTO
   question_follows (user_id, question_id)
 VALUES
