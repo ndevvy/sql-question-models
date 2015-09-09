@@ -1,6 +1,6 @@
 require_relative 'questions_manifest'
 
-class Question
+class Question < ModelBase
   attr_accessor :id, :title, :body, :author_id
 
   def initialize(options = {})
@@ -10,17 +10,17 @@ class Question
     @author_id = options['author_id']
   end
 
-  def self.find_by_id(id)
-    question_info = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        questions
-      WHERE
-        id = ?
-    SQL
-    Question.new(question_info.first)
-  end
+  # def self.find_by_id(id)
+  #   question_info = QuestionsDatabase.instance.execute(<<-SQL, id)
+  #     SELECT
+  #       *
+  #     FROM
+  #       questions
+  #     WHERE
+  #       id = ?
+  #   SQL
+  #   Question.new(question_info.first)
+  # end
 
   def self.find_by_author_id(author_id)
     questions_info = QuestionsDatabase.instance.execute(<<-SQL, author_id)

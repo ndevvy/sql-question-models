@@ -1,6 +1,6 @@
 require_relative 'questions_manifest'
 
-class QuestionLike
+class QuestionLike < ModelBase
   attr_accessor :id, :user_id, :question_id
 
   def initialize(options = {})

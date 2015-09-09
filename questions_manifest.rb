@@ -1,5 +1,7 @@
+require_relative 'questions_database.rb'
+require_relative 'modelbase.rb'
 require_relative 'user.rb'
 require_relative 'question.rb'
-require_relative 'questions_database.rb'
 require_relative 'reply.rb'
 require 'sqlite3'
+require 'byebug'

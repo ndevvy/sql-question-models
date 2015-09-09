@@ -1,7 +1,7 @@
 require_relative 'questions_manifest'
 
+class User < ModelBase
 
-class User
   attr_accessor :id, :fname, :lname
 
   def initialize(options = {})
@@ -10,18 +10,42 @@ class User
     @lname = options['lname']
   end
 
-  def self.find_by_id(id)
-    user_info = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        users
-      WHERE
-        id = ?
-    SQL
+  def save
+    if self.id.nil?
+      QuestionsDatabase.instance.execute(<<-SQL, self.fname, self.lname)
+      INSERT INTO
+      users (fname, lname)
+      VALUES
+      ( ?, ?)
+      SQL
 
-    User.new(user_info.first)
+      self.id = QuestionsDatabase.instance.last_insert_row_id
+
+    else
+      QuestionsDatabase.instance.execute(<<-SQL, self.fname, self.lname)
+      UPDATE
+        users
+      SET
+        fname = ?, lname = ?
+      WHERE
+        id = #{self.id}
+      SQL
+    end
+
   end
+
+  # def self.find_by_id(id)
+  #   user_info = QuestionsDatabase.instance.execute(<<-SQL, id)
+  #     SELECT
+  #       *
+  #     FROM
+  #       users
+  #     WHERE
+  #       id = ?
+  #   SQL
+  #
+  #   User.new(user_info.first)
+  # end
 
   def self.find_by_name(fname, lname)
     user_info = QuestionsDatabase.instance.execute(<<-SQL, fname, lname)

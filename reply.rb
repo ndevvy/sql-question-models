@@ -1,6 +1,6 @@
 require_relative 'questions_manifest'
 
-class Reply
+class Reply < ModelBase
 
   attr_accessor :id, :question_id, :parent_id, :author_id, :body
 
@@ -12,17 +12,17 @@ class Reply
     @body = options['body']
   end
 
-  def self.find_by_id(id)
-    reply_info = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        replies
-      WHERE
-        id = ?
-    SQL
-    Reply.new(reply_info.first)
-  end
+  # def self.find_by_id(id)
+  #   reply_info = QuestionsDatabase.instance.execute(<<-SQL, id)
+  #     SELECT
+  #       *
+  #     FROM
+  #       replies
+  #     WHERE
+  #       id = ?
+  #   SQL
+  #   Reply.new(reply_info.first)
+  # end
 
   def self.find_by_user_id(author_id)
     replies_info = QuestionsDatabase.instance.execute(<<-SQL, author_id)
